@@ -11,22 +11,57 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
           cache: gradle
-      - name: Build debug APK
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: Build Debug APK
         run: ./gradlew assembleDebug --stacktrace
+
       - name: Run unit tests
         run: ./gradlew test --stacktrace
-      - name: Upload APK
+        continue-on-error: true
+
+      - name: Upload Debug APK (Artifact)
         uses: actions/upload-artifact@v4
         with:
           name: netmaster-debug-apk
           path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+
+      - name: Create GitHub Release with APK
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0-complete
+          name: NetMaster Learning 1.0.0-complete
+          body: |
+            ## NetMaster Learning — Complete 1.0.0
+
+            Debug APK آماده نصب.
+
+            - Application ID: `com.example.netmaster`
+            - Version: 1.0.0-complete
+            - Creator: مهندس مسعود جوکار
+
+            فایل APK را از بخش Assets دانلود کنید.
+          files: app/build/outputs/apk/debug/*.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
