@@ -1,0 +1,140 @@
+{
+  "version": "1.0.0",
+  "catalog": "faults",
+  "description": "Evidence-driven fault matrix for controlled lab failures.",
+  "entries": [
+    {
+      "id": "fg-policy-mismatch",
+      "title": "FortiGate policy mismatch",
+      "symptom": "Client reaches gateway but TCP/443 is denied",
+      "firstEvidence": "diagnose debug flow + policy log + sniffer on ingress/egress",
+      "discriminatingTest": "Run one flow from a known source IP and compare matched policy ID with intended rule",
+      "resolution": "Correct source/destination/service/object scope or policy order; verify counters increment on intended rule",
+      "rollback": "Restore previous policy snapshot and retest same 5-tuple",
+      "tags": [
+        "fortigate",
+        "firewall",
+        "policy"
+      ]
+    },
+    {
+      "id": "fg-no-route",
+      "title": "FortiGate missing route",
+      "symptom": "Packet enters firewall but no forward path exists",
+      "firstEvidence": "get router info routing-table all + debug flow route lookup",
+      "discriminatingTest": "Compare intended prefix, longest match and next-hop reachability",
+      "resolution": "Restore connected/static/dynamic route or correct VRF/VDOM context",
+      "rollback": "Remove only the added route and return to previous routing table",
+      "tags": [
+        "fortigate",
+        "routing"
+      ]
+    },
+    {
+      "id": "dhcp-offer-missing",
+      "title": "DHCP Offer absent",
+      "symptom": "Client broadcasts Discover but never receives Offer",
+      "firstEvidence": "capture UDP 67/68 on client VLAN and inspect relay/server counters",
+      "discriminatingTest": "Send a single DHCP Discover while observing both client VLAN and server side",
+      "resolution": "Fix scope exhaustion, relay address, VLAN path or server service",
+      "rollback": "Restore relay/scope configuration and renew lease",
+      "tags": [
+        "dhcp",
+        "layer3"
+      ]
+    },
+    {
+      "id": "dns-servfail",
+      "title": "DNS SERVFAIL",
+      "symptom": "Reachable resolver returns SERVFAIL",
+      "firstEvidence": "dig +trace or authoritative query plus resolver logs",
+      "discriminatingTest": "Query the same name against local recursive resolver and authoritative server",
+      "resolution": "Fix upstream delegation, DNSSEC or authoritative service issue identified by evidence",
+      "rollback": "Restore last known-good zone/delegation configuration",
+      "tags": [
+        "dns"
+      ]
+    },
+    {
+      "id": "ospf-adj-exstart",
+      "title": "OSPF stuck in ExStart",
+      "symptom": "Neighbor never reaches Full",
+      "firstEvidence": "show ip ospf neighbor detail + MTU + packet capture of OSPF",
+      "discriminatingTest": "Compare interface MTU and DD packet negotiation on both sides",
+      "resolution": "Align MTU or explicitly use a lab-only workaround only when design permits",
+      "rollback": "Revert interface MTU/OSPF change",
+      "tags": [
+        "ospf",
+        "routing"
+      ]
+    },
+    {
+      "id": "tcp-mss-blackhole",
+      "title": "TCP MSS/PMTUD black hole",
+      "symptom": "Small requests work but large responses stall",
+      "firstEvidence": "capture SYN/SYN-ACK MSS and ICMP too-big messages",
+      "discriminatingTest": "Compare path MTU and negotiated MSS; test a reduced MSS",
+      "resolution": "Fix PMTUD filtering or set an appropriate TCP MSS clamp at the tunnel edge",
+      "rollback": "Remove MSS change and restore MTU/ICMP behavior",
+      "tags": [
+        "tcp",
+        "mtu",
+        "vpn"
+      ]
+    },
+    {
+      "id": "stp-root-shift",
+      "title": "Unexpected STP root change",
+      "symptom": "Traffic path changes and topology-change events spike",
+      "firstEvidence": "show spanning-tree root/roles + MAC movement + BPDU events",
+      "discriminatingTest": "Compare bridge priority and received BPDUs on candidate root ports",
+      "resolution": "Restore intended root priority and enable edge-port protections where appropriate",
+      "rollback": "Reapply prior STP priority configuration",
+      "tags": [
+        "stp",
+        "switching"
+      ]
+    },
+    {
+      "id": "snmp-no-data",
+      "title": "SNMP polling timeout",
+      "symptom": "NMS shows device unreachable while ICMP works",
+      "firstEvidence": "UDP/161 capture + agent ACL/security configuration",
+      "discriminatingTest": "Direct snmpget of sysName.0 from NMS host using same credentials/version",
+      "resolution": "Correct ACL, SNMP version/security parameters or agent state",
+      "rollback": "Restore previous management ACL/configuration",
+      "tags": [
+        "snmp",
+        "nms"
+      ]
+    },
+    {
+      "id": "sip-no-audio",
+      "title": "SIP call establishes but media is one-way",
+      "symptom": "200 OK occurs but RTP is missing in one direction",
+      "firstEvidence": "SIP SDP addresses/ports + bidirectional RTP capture",
+      "discriminatingTest": "Compare advertised media address with reachable NAT-mapped address",
+      "resolution": "Correct NAT/SBC/media relay or SIP ALG behavior based on evidence",
+      "rollback": "Restore previous SBC/NAT policy and retest a single call",
+      "tags": [
+        "voip",
+        "sip",
+        "rtp"
+      ]
+    },
+    {
+      "id": "cctv-stream-no-video",
+      "title": "IP camera online but no video",
+      "symptom": "Camera responds to ping but NVR has no stream",
+      "firstEvidence": "ONVIF discovery/RTSP TCP 554 capture and NVR camera status",
+      "discriminatingTest": "Open RTSP stream from isolated test client using camera credentials",
+      "resolution": "Correct codec/profile, credentials, stream URL or VLAN/PoE path",
+      "rollback": "Restore prior camera profile and NVR channel settings",
+      "tags": [
+        "cctv",
+        "rtsp",
+        "onvif"
+      ]
+    }
+  ]
+}

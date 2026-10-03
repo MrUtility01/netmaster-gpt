@@ -1,0 +1,464 @@
+{
+  "version": "1.0.0",
+  "catalog": "protocols",
+  "description": "Protocol reference for packet/state analysis, ports and verification.",
+  "entries": [
+    {
+      "id": "ethernet",
+      "title": "Ethernet II / IEEE 802.3",
+      "summary": "Frame delivery on the local link using destination/source MAC, EtherType/length, payload and FCS.",
+      "layers": [
+        "L2"
+      ],
+      "ports": [],
+      "states": [
+        "link-up",
+        "frame-forward",
+        "frame-drop"
+      ],
+      "commands": [
+        "show interfaces",
+        "show mac address-table",
+        "ip -s link"
+      ],
+      "sourceUrls": [
+        "https://www.ieee802.org/3/"
+      ]
+    },
+    {
+      "id": "dot1q",
+      "title": "802.1Q VLAN tagging",
+      "summary": "Adds VLAN identification to Ethernet frames on tagged links; access ports normally send/receive untagged frames while trunks carry tagged VLANs.",
+      "layers": [
+        "L2"
+      ],
+      "ports": [],
+      "states": [
+        "tagged",
+        "untagged",
+        "allowed",
+        "pruned"
+      ],
+      "commands": [
+        "show interfaces trunk",
+        "show vlan brief"
+      ],
+      "sourceUrls": [
+        "https://www.ieee802.org/1/pages/802.1Q.html"
+      ]
+    },
+    {
+      "id": "arp",
+      "title": "ARP",
+      "summary": "Maps IPv4 next-hop addresses to link-layer addresses on the local broadcast domain.",
+      "layers": [
+        "L2/L3"
+      ],
+      "ports": [],
+      "states": [
+        "request",
+        "reply",
+        "cache"
+      ],
+      "commands": [
+        "arp -a",
+        "ip neigh",
+        "show ip arp"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc826"
+      ]
+    },
+    {
+      "id": "ipv4",
+      "title": "IPv4",
+      "summary": "Connectionless network-layer forwarding using source/destination addresses, TTL, fragmentation fields and protocol number.",
+      "layers": [
+        "L3"
+      ],
+      "ports": [],
+      "states": [
+        "lookup",
+        "forward",
+        "expire"
+      ],
+      "commands": [
+        "ip route",
+        "show ip route"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc791"
+      ]
+    },
+    {
+      "id": "ipv6",
+      "title": "IPv6",
+      "summary": "128-bit addressing with extension headers, hop limit, Neighbor Discovery and ICMPv6 control messaging.",
+      "layers": [
+        "L3"
+      ],
+      "ports": [],
+      "states": [
+        "neighbor-discover",
+        "route",
+        "forward"
+      ],
+      "commands": [
+        "ip -6 addr",
+        "ip -6 route",
+        "show ipv6 neighbors"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc8200"
+      ]
+    },
+    {
+      "id": "icmp",
+      "title": "ICMP/ICMPv6",
+      "summary": "Control and diagnostic messages such as echo, time exceeded and destination unreachable.",
+      "layers": [
+        "L3"
+      ],
+      "ports": [],
+      "states": [
+        "request",
+        "reply",
+        "error"
+      ],
+      "commands": [
+        "ping",
+        "tracert",
+        "traceroute"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc792"
+      ]
+    },
+    {
+      "id": "tcp",
+      "title": "TCP",
+      "summary": "Reliable byte-stream transport with connection establishment, sequence/acknowledgment numbers, retransmission and congestion control.",
+      "layers": [
+        "L4"
+      ],
+      "ports": [],
+      "states": [
+        "SYN-SENT",
+        "SYN-RECEIVED",
+        "ESTABLISHED",
+        "FIN-WAIT",
+        "CLOSE-WAIT",
+        "TIME-WAIT"
+      ],
+      "commands": [
+        "ss -tnp",
+        "netstat -ano",
+        "tcpdump -ni any tcp"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc9293"
+      ]
+    },
+    {
+      "id": "udp",
+      "title": "UDP",
+      "summary": "Connectionless datagram transport without TCP-style delivery guarantees.",
+      "layers": [
+        "L4"
+      ],
+      "ports": [],
+      "states": [
+        "datagram-sent",
+        "datagram-received"
+      ],
+      "commands": [
+        "ss -unp",
+        "tcpdump -ni any udp"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc768"
+      ]
+    },
+    {
+      "id": "dns",
+      "title": "DNS",
+      "summary": "Hierarchical name resolution with recursive queries and records such as A, AAAA, CNAME, MX, NS and PTR.",
+      "layers": [
+        "L7"
+      ],
+      "ports": [
+        53
+      ],
+      "states": [
+        "query",
+        "referral",
+        "response",
+        "SERVFAIL",
+        "NXDOMAIN"
+      ],
+      "commands": [
+        "dig A example.com",
+        "nslookup example.com",
+        "Resolve-DnsName example.com"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc1034",
+        "https://www.rfc-editor.org/rfc/rfc1035"
+      ]
+    },
+    {
+      "id": "dhcp",
+      "title": "DHCPv4",
+      "summary": "Dynamic host configuration using Discover, Offer, Request and ACK exchanges.",
+      "layers": [
+        "L7"
+      ],
+      "ports": [
+        67,
+        68
+      ],
+      "states": [
+        "DISCOVER",
+        "OFFER",
+        "REQUEST",
+        "ACK",
+        "NAK"
+      ],
+      "commands": [
+        "ipconfig /all",
+        "ipconfig /renew",
+        "tcpdump -ni any udp port 67 or 68"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc2131"
+      ]
+    },
+    {
+      "id": "snmp",
+      "title": "SNMPv3",
+      "summary": "Network management protocol with authenticated/encrypted user-based security through USM.",
+      "layers": [
+        "L7"
+      ],
+      "ports": [
+        161,
+        162
+      ],
+      "states": [
+        "GET",
+        "GETNEXT",
+        "GETBULK",
+        "TRAP",
+        "INFORM"
+      ],
+      "commands": [
+        "snmpget -v3 -l authPriv ...",
+        "snmpwalk -v3 ..."
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc3414"
+      ]
+    },
+    {
+      "id": "syslog",
+      "title": "Syslog",
+      "summary": "Message transport and collection for operational events, commonly UDP 514 or TCP/TLS variants depending on deployment.",
+      "layers": [
+        "L7"
+      ],
+      "ports": [
+        514
+      ],
+      "states": [
+        "emit",
+        "collect",
+        "parse",
+        "correlate"
+      ],
+      "commands": [
+        "logger -t netmaster \"test\"",
+        "tcpdump -ni any port 514"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc5424"
+      ]
+    },
+    {
+      "id": "http",
+      "title": "HTTP/1.1",
+      "summary": "Request/response application protocol commonly transported over TCP, with methods, status codes and headers.",
+      "layers": [
+        "L7"
+      ],
+      "ports": [
+        80
+      ],
+      "states": [
+        "request",
+        "response",
+        "redirect",
+        "error"
+      ],
+      "commands": [
+        "curl -I http://example.com",
+        "curl -v http://example.com"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc9110"
+      ]
+    },
+    {
+      "id": "https",
+      "title": "HTTPS / TLS",
+      "summary": "HTTP protected by TLS, providing server authentication and encrypted transport.",
+      "layers": [
+        "L7"
+      ],
+      "ports": [
+        443
+      ],
+      "states": [
+        "ClientHello",
+        "ServerHello",
+        "certificate",
+        "key-establishment",
+        "application-data",
+        "close"
+      ],
+      "commands": [
+        "openssl s_client -connect host:443 -servername host",
+        "curl -vk https://host"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc8446"
+      ]
+    },
+    {
+      "id": "sip",
+      "title": "SIP",
+      "summary": "Call signaling protocol used to establish, modify and terminate VoIP sessions.",
+      "layers": [
+        "L7"
+      ],
+      "ports": [
+        5060,
+        5061
+      ],
+      "states": [
+        "INVITE",
+        "100 Trying",
+        "180 Ringing",
+        "200 OK",
+        "ACK",
+        "BYE"
+      ],
+      "commands": [
+        "sngrep",
+        "tcpdump -ni any port 5060"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc3261"
+      ]
+    },
+    {
+      "id": "rtp",
+      "title": "RTP/RTCP",
+      "summary": "Media transport and quality reporting for real-time applications.",
+      "layers": [
+        "L7"
+      ],
+      "ports": [],
+      "states": [
+        "sequence",
+        "timestamp",
+        "jitter",
+        "loss"
+      ],
+      "commands": [
+        "tshark -Y rtp",
+        "Wireshark RTP analysis"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc3550"
+      ]
+    },
+    {
+      "id": "ldap",
+      "title": "LDAP/LDAPS",
+      "summary": "Directory access protocol commonly used for identity and service integration.",
+      "layers": [
+        "L7"
+      ],
+      "ports": [
+        389,
+        636
+      ],
+      "states": [
+        "bind",
+        "search",
+        "compare",
+        "modify",
+        "unbind"
+      ],
+      "commands": [
+        "ldapsearch",
+        "openssl s_client -connect ldap:636"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc4511"
+      ]
+    },
+    {
+      "id": "radius",
+      "title": "RADIUS",
+      "summary": "AAA protocol commonly used for network access authentication and accounting.",
+      "layers": [
+        "L7"
+      ],
+      "ports": [
+        1812,
+        1813
+      ],
+      "states": [
+        "Access-Request",
+        "Access-Accept",
+        "Access-Reject",
+        "Accounting"
+      ],
+      "commands": [
+        "radtest",
+        "tcpdump -ni any udp port 1812 or 1813"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc2865",
+        "https://www.rfc-editor.org/rfc/rfc2866"
+      ]
+    },
+    {
+      "id": "ipsec",
+      "title": "IPsec / IKEv2",
+      "summary": "Network-layer security using IKE for negotiation and ESP/AH for protected traffic.",
+      "layers": [
+        "L3"
+      ],
+      "ports": [
+        500,
+        4500
+      ],
+      "states": [
+        "IKE_SA_INIT",
+        "IKE_AUTH",
+        "CHILD_SA",
+        "REKEY"
+      ],
+      "commands": [
+        "ip xfrm state",
+        "ip xfrm policy",
+        "diagnose vpn ike gateway list"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc7296"
+      ]
+    }
+  ]
+}

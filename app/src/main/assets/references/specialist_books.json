@@ -1,0 +1,102 @@
+{
+  "version": "1.0.0",
+  "catalog": "specialist_references",
+  "description": "Official and standards-based references used by the specialist curriculum. No proprietary book content is embedded.",
+  "entries": [
+    {
+      "id": "fortigate-7x",
+      "title": "FortiGate / FortiOS administration and CLI references",
+      "summary": "Official Fortinet administration and CLI references used for policy, routing, packet flow and sniffer lessons.",
+      "tags": [
+        "fortigate",
+        "firewall",
+        "vpn"
+      ],
+      "sourceUrls": [
+        "https://docs.fortinet.com/document/fortigate/7.6.4/administration-guide/54688/debugging-the-packet-flow",
+        "https://docs.fortinet.com/document/fortigate/7.2.3/administration-guide/680228/performing-a-sniffer-trace-or-packet-capture",
+        "https://docs.fortinet.com/document/fortigate/latest/cli-reference/333889629/config-firewall-policy"
+      ]
+    },
+    {
+      "id": "cisco-ios-xe-ospf",
+      "title": "Cisco IOS XE routing references",
+      "summary": "Official Cisco IOS XE routing and OSPF command/configuration references for adjacency, LSDB and RIB verification.",
+      "tags": [
+        "cisco",
+        "ospf",
+        "routing"
+      ],
+      "sourceUrls": [
+        "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_ospf/command/iro-cr-book/ospf-s1.html",
+        "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_pi/command/iri-cr-book/iri-cr-s1.html"
+      ]
+    },
+    {
+      "id": "windows-admin",
+      "title": "Microsoft Windows network and service command references",
+      "summary": "Microsoft Learn references for network diagnostics, DNS, routing, sockets, services and Event Log.",
+      "tags": [
+        "windows",
+        "cmd",
+        "troubleshooting"
+      ],
+      "sourceUrls": [
+        "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/ipconfig",
+        "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tracert",
+        "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/nslookup",
+        "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/netstat",
+        "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/wevtutil"
+      ]
+    },
+    {
+      "id": "rfc-network-core",
+      "title": "IETF RFCs for packet and protocol anatomy",
+      "summary": "Standards references for Ethernet, IPv4/IPv6, ARP, TCP/UDP, DNS, DHCP, HTTP, TLS, SIP/RTP, LDAP and IPsec.",
+      "tags": [
+        "rfc",
+        "protocols",
+        "packet-analysis"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc826",
+        "https://www.rfc-editor.org/rfc/rfc791",
+        "https://www.rfc-editor.org/rfc/rfc8200",
+        "https://www.rfc-editor.org/rfc/rfc9293",
+        "https://www.rfc-editor.org/rfc/rfc2131",
+        "https://www.rfc-editor.org/rfc/rfc1035",
+        "https://www.rfc-editor.org/rfc/rfc8446",
+        "https://www.rfc-editor.org/rfc/rfc3261",
+        "https://www.rfc-editor.org/rfc/rfc3414",
+        "https://www.rfc-editor.org/rfc/rfc7296"
+      ]
+    },
+    {
+      "id": "snmp-rfc",
+      "title": "SNMPv3 USM reference",
+      "summary": "IETF standard describing SNMPv3 User-based Security Model and message-level security procedures.",
+      "tags": [
+        "snmp",
+        "security",
+        "nms"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc3414"
+      ]
+    },
+    {
+      "id": "ethical-testing",
+      "title": "Authorized security testing practice",
+      "summary": "Security labs should use explicit scope, isolated targets, evidence capture and remediation reporting.",
+      "tags": [
+        "security",
+        "pentest",
+        "lab"
+      ],
+      "sourceUrls": [
+        "https://owasp.org/www-project-web-security-testing-guide/",
+        "https://www.nist.gov/cyberframework"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,244 @@
+{
+  "version": "1.0.0",
+  "catalog": "commands",
+  "description": "Vendor and platform command cards used for labs and verification.",
+  "entries": [
+    {
+      "id": "fg-flow",
+      "title": "FortiGate packet-flow debug",
+      "summary": "Trace a specific flow and stop tracing after evidence is collected.",
+      "commands": [
+        "diagnose debug reset",
+        "diagnose debug flow filter addr 10.10.10.10",
+        "diagnose debug flow show function-name enable",
+        "diagnose debug flow trace start 100",
+        "diagnose debug enable",
+        "diagnose debug disable",
+        "diagnose debug flow trace stop"
+      ],
+      "tags": [
+        "fortigate",
+        "troubleshooting",
+        "flow"
+      ],
+      "sourceUrls": [
+        "https://docs.fortinet.com/document/fortigate/7.6.4/administration-guide/54688/debugging-the-packet-flow"
+      ]
+    },
+    {
+      "id": "fg-sniffer",
+      "title": "FortiGate packet sniffer",
+      "summary": "Capture traffic with a tcpdump-style filter and bounded count.",
+      "commands": [
+        "diagnose sniffer packet any \"host 10.10.10.10 and port 443\" 4 50 a"
+      ],
+      "tags": [
+        "fortigate",
+        "pcap",
+        "troubleshooting"
+      ],
+      "sourceUrls": [
+        "https://docs.fortinet.com/document/fortigate/7.2.3/administration-guide/680228/performing-a-sniffer-trace-or-packet-capture"
+      ]
+    },
+    {
+      "id": "fg-route",
+      "title": "FortiGate routing table",
+      "summary": "Inspect the active routing table including connected, static and dynamic routes.",
+      "commands": [
+        "get router info routing-table all"
+      ],
+      "tags": [
+        "fortigate",
+        "routing"
+      ],
+      "sourceUrls": [
+        "https://docs2.fortinet.com/document/fortigate/7.4.11/administration-guide/221343/verifying-routing-table-contents-in-nat-mode"
+      ]
+    },
+    {
+      "id": "fg-policy",
+      "title": "FortiGate firewall policy",
+      "summary": "Inspect policy configuration and counters; policy order determines first match.",
+      "commands": [
+        "show firewall policy",
+        "config firewall policy",
+        "edit <id>",
+        "show",
+        "next",
+        "end"
+      ],
+      "tags": [
+        "fortigate",
+        "firewall"
+      ],
+      "sourceUrls": [
+        "https://docs.fortinet.com/document/fortigate/latest/cli-reference/333889629/config-firewall-policy"
+      ]
+    },
+    {
+      "id": "win-ipconfig",
+      "title": "Windows IP configuration",
+      "summary": "View TCP/IP configuration and refresh DHCP/DNS state.",
+      "commands": [
+        "ipconfig /all",
+        "ipconfig /release",
+        "ipconfig /renew",
+        "ipconfig /flushdns"
+      ],
+      "tags": [
+        "windows",
+        "network"
+      ],
+      "sourceUrls": [
+        "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/ipconfig"
+      ]
+    },
+    {
+      "id": "win-tracert",
+      "title": "Windows route trace",
+      "summary": "Trace path using ICMP/ICMPv6 TTL progression and inspect where replies stop.",
+      "commands": [
+        "tracert -d 8.8.8.8",
+        "pathping 8.8.8.8"
+      ],
+      "tags": [
+        "windows",
+        "routing"
+      ],
+      "sourceUrls": [
+        "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tracert"
+      ]
+    },
+    {
+      "id": "win-nslookup",
+      "title": "Windows DNS diagnostics",
+      "summary": "Query DNS records and test alternate resolvers.",
+      "commands": [
+        "nslookup www.example.com",
+        "nslookup",
+        "server 1.1.1.1",
+        "set type=mx",
+        "example.com"
+      ],
+      "tags": [
+        "windows",
+        "dns"
+      ],
+      "sourceUrls": [
+        "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/nslookup"
+      ]
+    },
+    {
+      "id": "win-netstat",
+      "title": "Windows socket inspection",
+      "summary": "Display listening sockets, connections, protocol statistics and process IDs.",
+      "commands": [
+        "netstat -ano",
+        "netstat -abno",
+        "netstat -r"
+      ],
+      "tags": [
+        "windows",
+        "tcp",
+        "ports"
+      ],
+      "sourceUrls": [
+        "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/netstat"
+      ]
+    },
+    {
+      "id": "win-services",
+      "title": "Windows service control",
+      "summary": "Inspect and control a service through Service Control Manager.",
+      "commands": [
+        "sc.exe query",
+        "sc.exe query w32time",
+        "sc.exe qc w32time",
+        "sc.exe stop w32time",
+        "sc.exe start w32time"
+      ],
+      "tags": [
+        "windows",
+        "services"
+      ],
+      "sourceUrls": [
+        "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/sc-query",
+        "https://learn.microsoft.com/en-us/windows/win32/services/controlling-a-service-using-sc"
+      ]
+    },
+    {
+      "id": "win-events",
+      "title": "Windows event query",
+      "summary": "Query and export Windows Event Log data using wevtutil.",
+      "commands": [
+        "wevtutil el",
+        "wevtutil qe System /c:20 /rd:true",
+        "wevtutil epl System C:\\Temp\\System.evtx"
+      ],
+      "tags": [
+        "windows",
+        "events"
+      ],
+      "sourceUrls": [
+        "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/wevtutil"
+      ]
+    },
+    {
+      "id": "cisco-route",
+      "title": "Cisco route and OSPF verification",
+      "summary": "Use routing and OSPF show commands to compare RIB state and adjacency.",
+      "commands": [
+        "show ip route",
+        "show ip ospf neighbor",
+        "show ip ospf interface brief",
+        "show ip ospf database"
+      ],
+      "tags": [
+        "cisco",
+        "ospf",
+        "routing"
+      ],
+      "sourceUrls": [
+        "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_ospf/command/iro-cr-book/ospf-s1.html",
+        "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_pi/command/iri-cr-book/iri-cr-s1.html"
+      ]
+    },
+    {
+      "id": "linux-net",
+      "title": "Linux network observation",
+      "summary": "Inspect addresses, routes, neighbors, sockets and packet captures without changing state.",
+      "commands": [
+        "ip addr",
+        "ip route",
+        "ip neigh",
+        "ss -lntup",
+        "tcpdump -ni any host 10.10.10.10"
+      ],
+      "tags": [
+        "linux",
+        "network"
+      ],
+      "sourceUrls": [
+        "https://man7.org/linux/man-pages/man8/ip.8.html",
+        "https://man7.org/linux/man-pages/man8/ss.8.html"
+      ]
+    },
+    {
+      "id": "snmpv3",
+      "title": "SNMPv3 authenticated/private polling",
+      "summary": "Poll a safe system OID using authentication and privacy.",
+      "commands": [
+        "snmpget -v3 -l authPriv -u <user> -a SHA -A <authpass> -x AES -X <privpass> <host> 1.3.6.1.2.1.1.5.0"
+      ],
+      "tags": [
+        "snmp",
+        "telemetry",
+        "security"
+      ],
+      "sourceUrls": [
+        "https://www.rfc-editor.org/rfc/rfc3414"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "version": "4.0",
+  "architecture": [
+    "User Query",
+    "Central Search",
+    "RAG Retrieval",
+    "Evidence Context",
+    "AI Reasoning",
+    "Safety Gate",
+    "Human Validation",
+    "Action/Report"
+  ],
+  "retrieval": {
+    "sources": [
+      "core curriculum",
+      "deep engineering",
+      "scenarios",
+      "notes",
+      "incidents",
+      "configs",
+      "PCAP"
+    ],
+    "strategy": "hybrid keyword + vector + source priority",
+    "grounding": "هر پاسخ باید بتواند منابع/قطعات context مورد استفاده را مشخص کند."
+  },
+  "modes": {
+    "TEACHER": "توضیح از ساده به فنی با packet/state و مثال",
+    "SOCRATIC": "پرسش هدایت‌شده به‌جای دادن پاسخ فوری",
+    "TROUBLESHOOTER": "Scope → Hypothesis → Evidence → Test → Finding",
+    "EXAMINER": "آزمون و ارزیابی mastery",
+    "LAB_COACH": "طراحی و هدایت Lab و Fault Injection",
+    "CONFIG_REVIEWER": "بررسی safety، ordering، least privilege و rollback",
+    "AUTONOMOUS_COACH": "اجرای فقط Simulator/داده امن و توقف برای تغییر واقعی"
+  },
+  "network_ai_rules": [
+    "AI نباید بدون تأیید انسانی روی تجهیز Production تغییر اعمال کند.",
+    "Command پیشنهادی باید platform و هدف را مشخص کند.",
+    "برای هر Root Cause حداقل یک Evidence مستقیم لازم است.",
+    "Confidence جایگزین Evidence نیست.",
+    "Secrets، token و credential نباید وارد context شوند."
+  ]
+}

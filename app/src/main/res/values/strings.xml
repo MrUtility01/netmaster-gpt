@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NetMaster Learning</string>
+    <string name="app_full_name">NetMaster Learning — Unified Engineering</string>
+    <string name="creator_name">مهندس مسعود جوکار</string>
+    <string name="about_title">درباره NetMaster</string>
+    <string name="about_text">پلتفرم یکپارچه آموزش و مهندسی شبکه؛ شامل مسیر آموزشی، Lab، شبیه‌ساز، RAG، هوش مصنوعی، تحلیل Packet/PCAP، عیب‌یابی و Incident Workspace.</string>
+    <string name="version_label">نسخه 1.0.0-complete</string>
+</resources>

@@ -1,0 +1,244 @@
+{
+  "version": "1.0.0",
+  "catalog": "packet_journeys",
+  "description": "End-to-end packet/state walkthroughs used by specialist lessons.",
+  "entries": [
+    {
+      "id": "dhcp-dora",
+      "title": "DHCP DORA",
+      "layers": [
+        "L2",
+        "L3",
+        "L7"
+      ],
+      "steps": [
+        "Client emits broadcast DHCPDISCOVER",
+        "Relay forwards with giaddr when required",
+        "Server replies DHCPOFFER",
+        "Client broadcasts DHCPREQUEST",
+        "Server returns DHCPACK"
+      ],
+      "observables": [
+        "UDP/67-68",
+        "xid",
+        "yiaddr",
+        "giaddr",
+        "lease timers"
+      ],
+      "failureStops": [
+        "No Offer",
+        "Wrong scope",
+        "Relay misconfiguration",
+        "NAK"
+      ]
+    },
+    {
+      "id": "dns-recursive",
+      "title": "DNS recursive lookup",
+      "layers": [
+        "L3",
+        "L4",
+        "L7"
+      ],
+      "steps": [
+        "Client queries recursive resolver",
+        "Resolver checks cache",
+        "Resolver queries authoritative servers as needed",
+        "Authoritative response returns RRset and TTL",
+        "Resolver caches and answers client"
+      ],
+      "observables": [
+        "UDP/TCP 53",
+        "flags RD/RA/AA",
+        "rcode",
+        "TTL"
+      ],
+      "failureStops": [
+        "timeout",
+        "SERVFAIL",
+        "NXDOMAIN",
+        "DNSSEC failure"
+      ]
+    },
+    {
+      "id": "tcp-tls",
+      "title": "TCP + TLS 1.3 web flow",
+      "layers": [
+        "L2",
+        "L3",
+        "L4",
+        "L7"
+      ],
+      "steps": [
+        "ARP/neighbor resolution",
+        "TCP SYN/SYN-ACK/ACK",
+        "TLS ClientHello",
+        "ServerHello/certificate/key schedule",
+        "Encrypted HTTP request/response"
+      ],
+      "observables": [
+        "5-tuple",
+        "MSS",
+        "SYN flags",
+        "TLS SNI",
+        "certificate",
+        "HTTP status"
+      ],
+      "failureStops": [
+        "SYN drop",
+        "RST",
+        "TLS alert",
+        "certificate mismatch"
+      ]
+    },
+    {
+      "id": "fortigate-flow",
+      "title": "FortiGate forward flow",
+      "layers": [
+        "L2",
+        "L3",
+        "L4",
+        "L7"
+      ],
+      "steps": [
+        "Ingress packet arrives",
+        "Route/VDOM context selected",
+        "Policy lookup matches first eligible policy",
+        "NAT/session state created as applicable",
+        "Egress packet emitted"
+      ],
+      "observables": [
+        "policy ID",
+        "route",
+        "SNAT/VIP",
+        "session ID",
+        "interface"
+      ],
+      "failureStops": [
+        "ingress absent",
+        "route missing",
+        "policy deny",
+        "NAT failure",
+        "return-path failure"
+      ]
+    },
+    {
+      "id": "ipsec-tunnel",
+      "title": "IPsec IKEv2 tunnel",
+      "layers": [
+        "L3"
+      ],
+      "steps": [
+        "IKE_SA_INIT negotiates cryptographic parameters",
+        "IKE_AUTH authenticates peers and creates CHILD_SA",
+        "ESP protects data",
+        "Rekey refreshes keys"
+      ],
+      "observables": [
+        "UDP/500 or 4500",
+        "SPI",
+        "proposal",
+        "peer state",
+        "CHILD_SA counters"
+      ],
+      "failureStops": [
+        "proposal mismatch",
+        "authentication failure",
+        "traffic selector mismatch",
+        "NAT-T/path issue"
+      ]
+    },
+    {
+      "id": "ospf-adjacency",
+      "title": "OSPF adjacency to route installation",
+      "layers": [
+        "L2",
+        "L3"
+      ],
+      "steps": [
+        "Hello exchange",
+        "2-Way negotiation",
+        "Database Description",
+        "LSA exchange/flooding",
+        "Full adjacency",
+        "SPF calculation",
+        "RIB/FIB installation"
+      ],
+      "observables": [
+        "neighbor state",
+        "RID",
+        "area",
+        "MTU",
+        "LSDB",
+        "route metric"
+      ],
+      "failureStops": [
+        "Hello mismatch",
+        "MTU mismatch",
+        "area/auth mismatch",
+        "missing LSA"
+      ]
+    },
+    {
+      "id": "voip-call",
+      "title": "SIP call + RTP media",
+      "layers": [
+        "L3",
+        "L4",
+        "L7"
+      ],
+      "steps": [
+        "REGISTER/INVITE",
+        "100/180/183 progress",
+        "200 OK with SDP",
+        "ACK",
+        "RTP media",
+        "BYE"
+      ],
+      "observables": [
+        "Call-ID",
+        "CSeq",
+        "SDP c= and m=",
+        "RTP sequence/jitter"
+      ],
+      "failureStops": [
+        "registration",
+        "signaling",
+        "NAT/SDP",
+        "RTP reachability"
+      ]
+    },
+    {
+      "id": "cctv-stream",
+      "title": "IP camera to NVR RTSP stream",
+      "layers": [
+        "L2",
+        "L3",
+        "L4",
+        "L7"
+      ],
+      "steps": [
+        "PoE power/link",
+        "DHCP/static IP",
+        "ONVIF discovery or manual channel add",
+        "RTSP session",
+        "RTP/RTCP video frames",
+        "NVR recording"
+      ],
+      "observables": [
+        "PoE state",
+        "IP",
+        "TCP/554",
+        "codec/profile",
+        "RTP packet rate"
+      ],
+      "failureStops": [
+        "power",
+        "VLAN",
+        "auth",
+        "RTSP",
+        "storage"
+      ]
+    }
+  ]
+}

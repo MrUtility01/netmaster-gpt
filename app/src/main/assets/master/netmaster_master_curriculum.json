@@ -1,0 +1,812 @@
+{
+  "schemaVersion": "2.0",
+  "product": "NetMaster Unified Mastery Path",
+  "version": "2.0.0",
+  "language": "fa-IR",
+  "purpose": "یک مسیر واحد آموزشی از صفر تا مهندس ارشد شبکه و زیرساخت، با پوشش Network, Systems, Security, Physical Infrastructure, VoIP, CCTV, Alarm, Attendance, UPS, Storage, Pentest و Enterprise Capstone؛ بدون تکرار، با درس‌های evidence-driven و lab.",
+  "contentModel": {
+    "core": "curriculum.json",
+    "deep": "not loaded as a duplicate curriculum",
+    "scenarios": "deep/scenarios.json",
+    "fieldEngineering": "12 tracks × 10 lessons added to curriculum",
+    "lessonPipeline": [
+      "Concept",
+      "Architecture",
+      "Packet/State",
+      "Configuration",
+      "Verification",
+      "Troubleshooting",
+      "Lab",
+      "Quiz",
+      "Project/Capstone"
+    ],
+    "specialistReferences": [
+      "references/protocol_catalog.json",
+      "references/commands.json",
+      "references/fault_matrix.json",
+      "references/packet_journeys.json",
+      "references/specialist_books.json"
+    ]
+  },
+  "phases": [
+    {
+      "id": 1,
+      "name": "Packet Journey & Protocol Engineering",
+      "levels": [
+        66
+      ],
+      "topics": [
+        "Frame anatomy و MTU",
+        "ARP/ND و neighbor discovery",
+        "IPv4 forwarding و TTL",
+        "IPv6 forwarding و extension headers",
+        "TCP handshake و state machine",
+        "TCP retransmission و congestion",
+        "UDP و application multiplexing",
+        "DNS resolution path",
+        "HTTPS/TLS handshake",
+        "End-to-end packet trace"
+      ],
+      "platforms": [
+        "Cisco IOS/IOS-XE",
+        "MikroTik RouterOS",
+        "Linux",
+        "Windows Server",
+        "EVE-NG/GNS3"
+      ],
+      "labModes": [
+        "Guided",
+        "Fault Injection",
+        "Evidence Challenge",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Enterprise Switching Engineering",
+      "levels": [
+        67
+      ],
+      "topics": [
+        "VLAN design و segmentation",
+        "802.1Q trunking",
+        "Native VLAN و tagging",
+        "STP root bridge",
+        "RSTP convergence",
+        "LACP و EtherChannel",
+        "Port security و edge ports",
+        "Voice VLAN و QoS marking",
+        "MLAG و redundancy concepts",
+        "Switch failure-domain design"
+      ],
+      "platforms": [
+        "Cisco IOS/IOS-XE",
+        "MikroTik RouterOS",
+        "Linux",
+        "Windows Server",
+        "EVE-NG/GNS3"
+      ],
+      "labModes": [
+        "Guided",
+        "Fault Injection",
+        "Evidence Challenge",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Routing Control/Data Plane",
+      "levels": [
+        68
+      ],
+      "topics": [
+        "Routing table vs FIB",
+        "Static routing engineering",
+        "Default route و route selection",
+        "OSPF neighbor formation",
+        "OSPF LSDB و SPF",
+        "OSPF area design",
+        "BGP session و attributes",
+        "BGP best-path reasoning",
+        "ECMP و asymmetric routing",
+        "Route leak و containment"
+      ],
+      "platforms": [
+        "Cisco IOS/IOS-XE",
+        "MikroTik RouterOS",
+        "Linux",
+        "Windows Server",
+        "EVE-NG/GNS3"
+      ],
+      "labModes": [
+        "Guided",
+        "Fault Injection",
+        "Evidence Challenge",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Security Engineering & Defense",
+      "levels": [
+        69
+      ],
+      "topics": [
+        "Threat modeling for networks",
+        "AAA و centralized identity",
+        "ACL design و rule ordering",
+        "Stateful firewall behavior",
+        "NAT security implications",
+        "IPsec concepts و tunnel states",
+        "Zero Trust network segmentation",
+        "802.1X و NAC",
+        "IDS/IPS evidence analysis",
+        "Hardening baseline و verification"
+      ],
+      "platforms": [
+        "Cisco IOS/IOS-XE",
+        "MikroTik RouterOS",
+        "Linux",
+        "Windows Server",
+        "EVE-NG/GNS3"
+      ],
+      "labModes": [
+        "Guided",
+        "Fault Injection",
+        "Evidence Challenge",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Infrastructure Services Engineering",
+      "levels": [
+        70
+      ],
+      "topics": [
+        "DHCP lease lifecycle",
+        "DHCP relay و option handling",
+        "DNS recursive resolution",
+        "Authoritative DNS",
+        "Split DNS design",
+        "NTP و clock discipline",
+        "PKI و certificate chain",
+        "Directory services و LDAP",
+        "Proxy و reverse proxy",
+        "Service dependency mapping"
+      ],
+      "platforms": [
+        "Cisco IOS/IOS-XE",
+        "MikroTik RouterOS",
+        "Linux",
+        "Windows Server",
+        "EVE-NG/GNS3"
+      ],
+      "labModes": [
+        "Guided",
+        "Fault Injection",
+        "Evidence Challenge",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Wireless, Voice & Real-Time Traffic",
+      "levels": [
+        71
+      ],
+      "topics": [
+        "802.11 association flow",
+        "RF channels و interference",
+        "Roaming و fast transition",
+        "WPA2/WPA3 authentication",
+        "Wireless troubleshooting with captures",
+        "SIP registration",
+        "SIP call setup",
+        "RTP media path",
+        "Voice VLAN و DSCP",
+        "QoS for latency-sensitive traffic"
+      ],
+      "platforms": [
+        "Cisco IOS/IOS-XE",
+        "MikroTik RouterOS",
+        "Linux",
+        "Windows Server",
+        "EVE-NG/GNS3"
+      ],
+      "labModes": [
+        "Guided",
+        "Fault Injection",
+        "Evidence Challenge",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Virtualization, Cloud & Data Center Networking",
+      "levels": [
+        72
+      ],
+      "topics": [
+        "vSwitch and virtual NIC",
+        "VLANs in virtualization",
+        "VMware distributed switching concepts",
+        "Hypervisor management networks",
+        "VXLAN/overlay fundamentals",
+        "Cloud VPC/VNet primitives",
+        "Security groups vs network ACLs",
+        "Load balancer traffic flow",
+        "NAT gateways and routing domains",
+        "Data-center failure domains"
+      ],
+      "platforms": [
+        "Cisco IOS/IOS-XE",
+        "MikroTik RouterOS",
+        "Linux",
+        "Windows Server",
+        "EVE-NG/GNS3"
+      ],
+      "labModes": [
+        "Guided",
+        "Fault Injection",
+        "Evidence Challenge",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Observability & Monitoring Engineering",
+      "levels": [
+        73
+      ],
+      "topics": [
+        "Observability pillars",
+        "SNMP polling vs traps",
+        "Zabbix host/template design",
+        "Time-series metrics",
+        "Log collection and parsing",
+        "Syslog pipeline",
+        "Flow telemetry and NetFlow",
+        "Synthetic checks",
+        "Alert correlation and noise reduction",
+        "SLO/SLI for network services"
+      ],
+      "platforms": [
+        "Cisco IOS/IOS-XE",
+        "MikroTik RouterOS",
+        "Linux",
+        "Windows Server",
+        "EVE-NG/GNS3"
+      ],
+      "labModes": [
+        "Guided",
+        "Fault Injection",
+        "Evidence Challenge",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Automation & Network as Code",
+      "levels": [
+        74
+      ],
+      "topics": [
+        "Automation safety model",
+        "Python networking primitives",
+        "SSH automation patterns",
+        "RouterOS API/REST concepts",
+        "Cisco automation with structured output",
+        "Idempotent configuration",
+        "Config templating",
+        "Git-based change workflow",
+        "Validation and rollback automation",
+        "Inventory-driven automation"
+      ],
+      "platforms": [
+        "Cisco IOS/IOS-XE",
+        "MikroTik RouterOS",
+        "Linux",
+        "Windows Server",
+        "EVE-NG/GNS3"
+      ],
+      "labModes": [
+        "Guided",
+        "Fault Injection",
+        "Evidence Challenge",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Incident Response & Digital Forensics",
+      "levels": [
+        75
+      ],
+      "topics": [
+        "Incident triage and scope",
+        "Evidence collection order",
+        "Packet capture during incident",
+        "Timeline construction",
+        "Configuration diff analysis",
+        "DNS incident investigation",
+        "Authentication incident investigation",
+        "Lateral movement indicators",
+        "Containment vs eradication",
+        "Post-incident RCA and lessons learned"
+      ],
+      "platforms": [
+        "Cisco IOS/IOS-XE",
+        "MikroTik RouterOS",
+        "Linux",
+        "Windows Server",
+        "EVE-NG/GNS3"
+      ],
+      "labModes": [
+        "Guided",
+        "Fault Injection",
+        "Evidence Challenge",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Enterprise Architecture & Capstone",
+      "levels": [
+        76
+      ],
+      "topics": [
+        "Requirements to architecture",
+        "IPAM and address planning",
+        "Campus network design",
+        "Data-center network design",
+        "Branch/WAN design",
+        "High availability patterns",
+        "Capacity planning",
+        "Migration and maintenance windows",
+        "Network documentation as code",
+        "Enterprise capstone review"
+      ],
+      "platforms": [
+        "Cisco IOS/IOS-XE",
+        "MikroTik RouterOS",
+        "Linux",
+        "Windows Server",
+        "EVE-NG/GNS3"
+      ],
+      "labModes": [
+        "Guided",
+        "Fault Injection",
+        "Evidence Challenge",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "AI for Network Engineering & AIOps",
+      "levels": [
+        77
+      ],
+      "topics": [
+        "AI assistant architecture",
+        "RAG for network knowledge",
+        "Embedding and retrieval quality",
+        "Grounded troubleshooting",
+        "AI command safety",
+        "Structured telemetry for AI",
+        "AIOps anomaly detection",
+        "AI-assisted PCAP analysis",
+        "Agent tool calling and approvals",
+        "Private/local AI capstone"
+      ],
+      "platforms": [
+        "Cisco IOS/IOS-XE",
+        "MikroTik RouterOS",
+        "Linux",
+        "Windows Server",
+        "EVE-NG/GNS3"
+      ],
+      "labModes": [
+        "Guided",
+        "Fault Injection",
+        "Evidence Challenge",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 23,
+      "name": "Physical Infrastructure & Passive Networking",
+      "levels": [
+        86
+      ],
+      "topics": [
+        "Rack, labeling و استاندارد تحویل",
+        "UTP/STP/FTP و T568A/T568B",
+        "Fiber: Single-Mode/Multi-Mode و Connectorها",
+        "Patch Panel, Keystone, Trunking و Duct",
+        "Cable Testing و Certification",
+        "PoE و Power Budget",
+        "Grounding، EMI و Surge Protection",
+        "SFP/Optics و Link Budget",
+        "Physical Documentation و As-Built",
+        "Passive Network Capstone"
+      ],
+      "platforms": [
+        "Copper",
+        "Fiber",
+        "PoE",
+        "Network Rack",
+        "Cable Tester"
+      ],
+      "labModes": [
+        "Guided",
+        "Break/Fix",
+        "Evidence Challenge",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Hardware, RAM, Storage, UPS & Power",
+      "levels": [
+        87
+      ],
+      "topics": [
+        "CPU Architecture و Core/Thread",
+        "RAM DDR، Channel، ECC",
+        "Motherboard، Chipset و BIOS/UEFI",
+        "HDD/SSD/NVMe/SAS",
+        "RAID 0/1/5/6/10/50/60",
+        "NAS/SAN/DAS و iSCSI/FC",
+        "Hardware Diagnostics",
+        "Thermal Management و Cooling",
+        "UPS، AVR، Generator و ATS",
+        "Power & Storage Capstone"
+      ],
+      "platforms": [
+        "Windows",
+        "Linux",
+        "Server Hardware",
+        "UPS-NUT"
+      ],
+      "labModes": [
+        "Guided",
+        "Calculation",
+        "Break/Fix",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 25,
+      "name": "CCTV, NVR/DVR & Video Surveillance",
+      "levels": [
+        88
+      ],
+      "topics": [
+        "CCTV Architecture و انواع دوربین",
+        "Resolution، Sensor و Lens",
+        "PoE و CCTV Network Design",
+        "RTSP و ONVIF",
+        "NVR/DVR/XVR",
+        "Recording، Retention و Storage",
+        "Motion Detection و Video Analytics",
+        "Remote Access، DDNS و P2P",
+        "CCTV Hardening و امنیت",
+        "Surveillance Capstone"
+      ],
+      "platforms": [
+        "IP CCTV",
+        "NVR",
+        "DVR",
+        "XVR",
+        "PoE",
+        "ONVIF",
+        "RTSP"
+      ],
+      "labModes": [
+        "Guided",
+        "Topology",
+        "Break/Fix",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 26,
+      "name": "Alarm, Access Control & Attendance Systems",
+      "levels": [
+        89
+      ],
+      "topics": [
+        "Alarm Architecture",
+        "Zone Types و Sensors",
+        "Partition، User Code و Access Roles",
+        "Wiring و End-of-Line",
+        "Wireless Sensors",
+        "GSM/GPRS/IP Reporting",
+        "Access Control Basics",
+        "Attendance Devices",
+        "Reporting، Backup و Audit",
+        "Physical Security Capstone"
+      ],
+      "platforms": [
+        "Alarm Panels",
+        "Access Control",
+        "Attendance Devices",
+        "GSM-IP"
+      ],
+      "labModes": [
+        "Guided",
+        "Configuration",
+        "Evidence Challenge",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 27,
+      "name": "PBX, Traditional Telephony & VoIP Integration",
+      "levels": [
+        90
+      ],
+      "topics": [
+        "PBX Architecture",
+        "CO/FXO/FXS و ISDN",
+        "Extensions و Numbering Plan",
+        "Asterisk و FreePBX",
+        "Dialplan، IVR و Queue",
+        "SIP/RTP/Codec و QoS",
+        "SBC، Gateway و NAT",
+        "Legacy PBX ↔ VoIP Integration",
+        "CDR، Monitoring و Backup",
+        "Telephony Capstone"
+      ],
+      "platforms": [
+        "Asterisk",
+        "FreePBX",
+        "IP Phones",
+        "Legacy PBX",
+        "Gateway"
+      ],
+      "labModes": [
+        "Guided",
+        "Packet Trace",
+        "Break/Fix",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 28,
+      "name": "Infrastructure Services, Ports & Protocol Engineering",
+      "levels": [
+        91
+      ],
+      "topics": [
+        "DNS Deep Operations",
+        "DHCP Deep Operations",
+        "NTP و Time Discipline",
+        "TFTP/FTP/SFTP و File Transfer",
+        "HTTP/HTTPS و Web Services",
+        "SMTP/POP3/IMAP",
+        "LDAP/LDAPS",
+        "RADIUS و TACACS+",
+        "SNMP، Syslog و Flow Telemetry",
+        "Ports & Protocols Capstone"
+      ],
+      "platforms": [
+        "Windows Server",
+        "Linux",
+        "Network Devices",
+        "NMS"
+      ],
+      "labModes": [
+        "Guided",
+        "Service Lab",
+        "Packet Trace",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 29,
+      "name": "Ethical Hacking, Penetration Testing & Kali",
+      "levels": [
+        92
+      ],
+      "topics": [
+        "Pentest Methodology و Rules of Engagement",
+        "Recon و Asset Discovery",
+        "Nmap Scanning و Service Enumeration",
+        "Web Testing با Burp/ZAP",
+        "Content Discovery و Configuration Review",
+        "Password Auditing در Lab",
+        "Wireless Security Lab",
+        "Windows/AD Security Assessment",
+        "Reporting و Remediation",
+        "CTF / Defensive Capstone"
+      ],
+      "platforms": [
+        "Kali",
+        "OWASP Juice Shop",
+        "DVWA",
+        "Metasploitable",
+        "CTF"
+      ],
+      "labModes": [
+        "Guided",
+        "CTF",
+        "Evidence Challenge",
+        "Report"
+      ]
+    },
+    {
+      "id": 30,
+      "name": "Email, Web, Application, IoT & OT Security",
+      "levels": [
+        93
+      ],
+      "topics": [
+        "SPF و Sender Policy",
+        "DKIM",
+        "DMARC",
+        "TLS، HSTS و CSP",
+        "CORS، JWT و OAuth2",
+        "WAF و API Security",
+        "IoT Security",
+        "OT/SCADA و Modbus",
+        "Segmentation و Zero Trust",
+        "Security Architecture Capstone"
+      ],
+      "platforms": [
+        "Web",
+        "Mail",
+        "API",
+        "IoT",
+        "OT-SCADA"
+      ],
+      "labModes": [
+        "Guided",
+        "Hardening",
+        "Threat Modeling",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 31,
+      "name": "Multi-vendor Firewalls & Security Platforms",
+      "levels": [
+        94
+      ],
+      "topics": [
+        "Firewall Architecture و Stateful Inspection",
+        "Cisco ASA/Firepower Concepts",
+        "Palo Alto Concepts",
+        "Check Point Concepts",
+        "Sophos و SonicWall",
+        "Juniper SRX",
+        "pfSense/OPNsense",
+        "Linux nftables/iptables/UFW/Firewalld",
+        "HA، Logging و Central Management",
+        "Multi-vendor Firewall Capstone"
+      ],
+      "platforms": [
+        "Cisco ASA",
+        "Firepower",
+        "Palo Alto",
+        "Check Point",
+        "Sophos",
+        "SonicWall",
+        "Juniper SRX",
+        "pfSense",
+        "OPNsense",
+        "Linux"
+      ],
+      "labModes": [
+        "Guided",
+        "Policy Lab",
+        "Break/Fix",
+        "Capstone"
+      ]
+    },
+    {
+      "id": 32,
+      "name": "Integrated Enterprise Projects & Capstones",
+      "levels": [
+        95
+      ],
+      "topics": [
+        "Office Network Integrated Project",
+        "Factory Network Integrated Project",
+        "Multi-site VPN Project",
+        "VoIP + CCTV + Attendance Integration",
+        "Data Center Compute/Storage Project",
+        "Observability + SIEM Project",
+        "Backup & Disaster Recovery Project",
+        "Incident Response Drill",
+        "As-Built، SOP و Runbook",
+        "Grand Master Capstone"
+      ],
+      "platforms": [
+        "EVE-NG",
+        "GNS3",
+        "VMware",
+        "Hyper-V",
+        "Proxmox",
+        "Linux",
+        "Windows",
+        "Cisco",
+        "MikroTik",
+        "FortiGate"
+      ],
+      "labModes": [
+        "Architecture",
+        "Integration",
+        "Incident",
+        "Capstone"
+      ]
+    }
+  ],
+  "integration": {
+    "centralSearch": [
+      "Lessons",
+      "Deep Lessons",
+      "Scenarios",
+      "Notes",
+      "Incidents",
+      "Configs",
+      "PCAP Captures",
+      "CCTV",
+      "NVR/DVR",
+      "Alarm",
+      "Attendance",
+      "UPS",
+      "Passive Cabling",
+      "Hardware",
+      "PBX",
+      "Pentest",
+      "IoT/OT",
+      "Firewall Platforms"
+    ],
+    "rag": [
+      "chunking",
+      "keyword retrieval",
+      "embedding retrieval",
+      "grounded context",
+      "source attribution"
+    ],
+    "aiModes": [
+      "Teacher",
+      "Socratic",
+      "Troubleshooter",
+      "Examiner",
+      "Lab Coach",
+      "Config Reviewer",
+      "Autonomous Coach"
+    ],
+    "safety": [
+      "human approval before production change",
+      "no secrets in prompts",
+      "audit trail",
+      "model/version tracking",
+      "data minimization"
+    ]
+  },
+  "mastery": [
+    "UNKNOWN",
+    "REVIEW",
+    "KNOWN",
+    "MASTERED"
+  ],
+  "recommendedJourney": [
+    "Foundation levels 1-24",
+    "Professional engineering levels 25-50",
+    "AI & automation levels 51-65",
+    "Field engineering levels 66-77",
+    "Deep Engineering levels 78-85",
+    "Unified infrastructure & specialist levels 86-94",
+    "Integrated Enterprise Capstone level 95",
+    "Break/Fix scenarios + lab portfolio"
+  ],
+  "specialist_books": "references/specialist_books.json",
+  "protocol_reference": "references/protocol_catalog.json",
+  "command_reference": "references/commands.json",
+  "fault_matrix": "references/fault_matrix.json",
+  "packet_journeys": "references/packet_journeys.json"
+}
