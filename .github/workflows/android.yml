@@ -24,13 +24,30 @@ jobs:
           java-version: '17'
           cache: gradle
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Setup Android SDK (manual reliable method)
+        run: |
+          # Use pre-installed SDK if available, otherwise install cmdline-tools
+          if [ -d "$ANDROID_HOME" ] || [ -d "$ANDROID_SDK_ROOT" ]; then
+            echo "Using pre-installed Android SDK"
+            export ANDROID_HOME=${ANDROID_HOME:-$ANDROID_SDK_ROOT}
+          else
+            echo "Installing Android command-line tools..."
+            mkdir -p $HOME/android-sdk/cmdline-tools
+            curl -sL -o /tmp/cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+            unzip -q /tmp/cmdline-tools.zip -d $HOME/android-sdk/cmdline-tools
+            mv $HOME/android-sdk/cmdline-tools/cmdline-tools $HOME/android-sdk/cmdline-tools/latest
+            export ANDROID_HOME=$HOME/android-sdk
+          fi
+          echo "ANDROID_HOME=$ANDROID_HOME" >> $GITHUB_ENV
+          echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> $GITHUB_PATH
+          echo "$ANDROID_HOME/platform-tools" >> $GITHUB_PATH
+
+          # Accept licenses and install required packages
+          yes | sdkmanager --licenses > /dev/null || true
+          sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0" || true
 
       - name: Fix broken Gradle Wrapper
         run: |
-          # The committed gradle-wrapper.jar is corrupted (only 5KB instead of ~43KB).
-          # Download the official one matching Gradle 8.9 and a proper gradlew script.
           curl -sL -o gradle/wrapper/gradle-wrapper.jar \
             "https://raw.githubusercontent.com/gradle/gradle/v8.9.0/gradle/wrapper/gradle-wrapper.jar"
           curl -sL -o gradlew \
