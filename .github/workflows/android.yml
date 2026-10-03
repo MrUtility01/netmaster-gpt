@@ -27,14 +27,24 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
+      - name: Fix broken Gradle Wrapper
+        run: |
+          # The committed gradle-wrapper.jar is corrupted (only 5KB instead of ~43KB).
+          # Download the official one matching Gradle 8.9 and a proper gradlew script.
+          curl -sL -o gradle/wrapper/gradle-wrapper.jar \
+            "https://raw.githubusercontent.com/gradle/gradle/v8.9.0/gradle/wrapper/gradle-wrapper.jar"
+          curl -sL -o gradlew \
+            "https://raw.githubusercontent.com/gradle/gradle/v8.9.0/gradlew"
+          curl -sL -o gradlew.bat \
+            "https://raw.githubusercontent.com/gradle/gradle/v8.9.0/gradlew.bat"
+          chmod +x gradlew
+          ls -la gradlew gradle/wrapper/gradle-wrapper.jar
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug --stacktrace
+        run: ./gradlew assembleDebug --stacktrace --no-daemon
 
       - name: Run unit tests
-        run: ./gradlew test --stacktrace
+        run: ./gradlew test --stacktrace --no-daemon
         continue-on-error: true
 
       - name: Upload Debug APK (Artifact)
