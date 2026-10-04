@@ -33,7 +33,7 @@ object DeepContentMapper {
             commands=s.tests.joinToString("\n"),
             traffic=s.evidence.joinToString("\n"),
             lab="${s.expectedFinding}\n\nResolution: ${s.resolution}",
-            troubleshooting="${s.expectedFinding}\nRollback: ${s.rollback}",
+            troubleshooting=listOf(FailureCase(s.symptom, s.hypotheses.firstOrNull().orEmpty(), s.expectedFinding, s.rollback)),
             questions=listOf("کدام Evidence فرضیه را رد می‌کند؟","اولین Test کم‌خطر چیست؟"),
             tags=s.tags + listOf(s.domain,"scenario"),
             deepTechnical=s.scope,
@@ -55,7 +55,9 @@ object DeepContentMapper {
 
     private fun DeepLesson.toLesson()=Lesson(
         id=id,title=title,goal=goal,simple=simple,technical=technical,diagram=diagram,example=example,commands=commands,traffic=traffic,
-        lab=lab,troubleshooting=troubleshooting,questions=questions,tags=tags,deepTechnical=deepTechnical,packetWalkthrough=packetWalkthrough,
+        lab=lab,
+        troubleshooting=if (troubleshooting.isBlank()) emptyList() else listOf(FailureCase(hypothesis=troubleshooting.take(200))),
+        questions=questions,tags=tags,deepTechnical=deepTechnical,packetWalkthrough=packetWalkthrough,
         configurationPlaybook=configurationPlaybook,platformCommands=platformCommands,realScenario=realScenario,failureMatrix=failureMatrix,
         evidenceChecklist=evidenceChecklist,labSteps=labSteps,interviewQuestions=interviewQuestions,masteryPath=masteryPath,topicSpecific=topicSpecific,
         keyPoints=keyPoints,commonMistakes=commonMistakes,studyChecklist=studyChecklist
