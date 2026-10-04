@@ -11,7 +11,8 @@ class SearchEngine {
         return lessons.mapNotNull { l ->
             val fields = linkedMapOf(
                 "عنوان" to l.title, "هدف" to l.goal, "مفهوم" to l.simple, "فنی" to l.technical,
-                "Command" to l.commands, "Traffic" to l.traffic, "Lab" to l.lab, "Troubleshooting" to l.troubleshooting,
+                "Command" to l.commands, "Traffic" to l.traffic, "Lab" to l.lab,
+                "Troubleshooting" to l.troubleshooting.joinToString(" ") { "${it.symptom} ${it.hypothesis} ${it.evidence} ${it.next}" },
                 "Tag" to l.tags.joinToString(" "), "نکات" to l.keyPoints.joinToString(" ")
             )
             val matched = fields.filterValues { it.lowercase().contains(q) }.keys.toList()
