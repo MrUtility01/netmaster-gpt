@@ -4,7 +4,6 @@ set -euo pipefail
 SCREENS=app/src/main/java/com/example/netmaster/ui/NetMasterScreens.kt
 VM=app/src/main/java/com/example/netmaster/ui/NetMasterViewModel.kt
 APP=app/src/main/java/com/example/netmaster/ui/NetMasterApp.kt
-ENRICHER=app/src/main/java/com/example/netmaster/domain/LessonEnricher.kt
 
 # NetMasterScreens: missing imports
 if ! grep -q 'import androidx.compose.material.icons.Icons' "$SCREENS"; then
@@ -19,9 +18,10 @@ if grep -q '^fun QuizScreen' "$SCREENS"; then
   sed -i 's/^fun QuizScreen/@Composable\nfun QuizScreen/' "$SCREENS"
 fi
 
-# ViewModel fixes via Python for multi-line safety
 python3 - <<'PY'
 from pathlib import Path
+
+# ViewModel
 p = Path('app/src/main/java/com/example/netmaster/ui/NetMasterViewModel.kt')
 t = p.read_text(encoding='utf-8')
 changed = False
@@ -40,9 +40,7 @@ new = '''    private fun contentKey(source: String): String? {
         }
     }'''
 if old in t:
-    t = t.replace(old, new, 1)
-    changed = True
-    print('contentKey fixed')
+    t = t.replace(old, new, 1); changed = True; print('contentKey fixed')
 old2 = '''            val spec: KeySpec = PBEKeySpec(password.toCharArray(), salt, 120_000, 256)
             val actual = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256").generateSecret(spec).encoded
             spec.clearPassword()'''
@@ -50,55 +48,60 @@ new2 = '''            val pbe = PBEKeySpec(password.toCharArray(), salt, 120_000
             val actual = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256").generateSecret(pbe).encoded
             pbe.clearPassword()'''
 if old2 in t:
-    t = t.replace(old2, new2, 1)
-    changed = True
-    print('clearPassword fixed')
+    t = t.replace(old2, new2, 1); changed = True; print('clearPassword fixed')
 if changed:
     p.write_text(t, encoding='utf-8')
-PY
 
-# OptIn for TopAppBar - use Python to avoid duplicate @Composable
-python3 - <<'PY'
-from pathlib import Path
+# NetMasterApp OptIn
 p = Path('app/src/main/java/com/example/netmaster/ui/NetMasterApp.kt')
 t = p.read_text(encoding='utf-8')
 if 'ExperimentalMaterial3Api' not in t:
-    t = t.replace(
-        'package com.example.netmaster.ui\n',
-        'package com.example.netmaster.ui\n\nimport androidx.compose.material3.ExperimentalMaterial3Api\n',
-        1,
-    )
-    t = t.replace(
-        '@Composable\nprivate fun MainAppShell',
-        '@OptIn(ExperimentalMaterial3Api::class)\n@Composable\nprivate fun MainAppShell',
-        1,
-    )
-    p.write_text(t, encoding='utf-8')
-    print('OptIn added for MainAppShell')
-else:
-    print('OptIn already present')
-PY
+    t = t.replace('package com.example.netmaster.ui\n', 'package com.example.netmaster.ui\n\nimport androidx.compose.material3.ExperimentalMaterial3Api\n', 1)
+    t = t.replace('@Composable\nprivate fun MainAppShell', '@OptIn(ExperimentalMaterial3Api::class)\n@Composable\nprivate fun MainAppShell', 1)
+    p.write_text(t, encoding='utf-8'); print('OptIn added')
 
-# LessonEnricher: troubleshooting is now List<FailureCase>
-python3 - <<'PY'
-from pathlib import Path
+# LessonEnricher
 p = Path('app/src/main/java/com/example/netmaster/domain/LessonEnricher.kt')
 t = p.read_text(encoding='utf-8')
 orig = t
-# Replace parseTroubleshoot(lesson.troubleshooting) with direct list usage
-t = t.replace(
-    'lesson.failureMatrix.ifEmpty { parseTroubleshoot(lesson.troubleshooting) }',
-    'lesson.failureMatrix.ifEmpty { lesson.troubleshooting }',
-)
+t = t.replace('lesson.failureMatrix.ifEmpty { parseTroubleshoot(lesson.troubleshooting) }', 'lesson.failureMatrix.ifEmpty { lesson.troubleshooting }')
 t = t.replace(
     'if (lesson.failureMatrix.isNotEmpty()) lesson.failureMatrix else if (isBoilerplate(lesson.troubleshooting, listOf("Failure Matrix"))) b.failures else parseTroubleshoot(lesson.troubleshooting)',
     'if (lesson.failureMatrix.isNotEmpty()) lesson.failureMatrix else if (lesson.troubleshooting.isNotEmpty()) lesson.troubleshooting else b.failures',
 )
 if t != orig:
-    p.write_text(t, encoding='utf-8')
-    print('Enricher updated for List troubleshooting')
-else:
-    print('Enricher already updated or patterns not found')
-PY
+    p.write_text(t, encoding='utf-8'); print('Enricher updated')
 
-echo 'Compile fixes applied.'
+# DeepContentMapper: String -> List for troubleshooting
+p = Path('app/src/main/java/com/example/netmaster/data/DeepContentMapper.kt')
+t = p.read_text(encoding='utf-8')
+orig = t
+t = t.replace(
+    'troubleshooting="${s.expectedFinding}\nRollback: ${s.rollback}",',
+    'troubleshooting=listOf(FailureCase(s.symptom, s.hypotheses.firstOrNull().orEmpty(), s.expectedFinding, s.rollback)),',
+)
+# DeepLesson.toLesson: convert String troubleshooting field to list
+t = t.replace(
+    'lab=lab,troubleshooting=troubleshooting,questions=questions',
+    'lab=lab,troubleshooting=if (troubleshooting.isBlank()) emptyList() else listOf(FailureCase(hypothesis=troubleshooting.take(200))),questions=questions',
+)
+if t != orig:
+    p.write_text(t, encoding='utf-8'); print('DeepContentMapper updated')
+else:
+    print('DeepContentMapper patterns not found or already fixed')
+
+# SearchEngine: List troubleshooting is not a String
+p = Path('app/src/main/java/com/example/netmaster/search/SearchEngine.kt')
+t = p.read_text(encoding='utf-8')
+orig = t
+t = t.replace(
+    '"Troubleshooting" to l.troubleshooting,',
+    '"Troubleshooting" to l.troubleshooting.joinToString(" ") { "${it.symptom} ${it.hypothesis} ${it.evidence} ${it.next}" },',
+)
+if t != orig:
+    p.write_text(t, encoding='utf-8'); print('SearchEngine updated')
+else:
+    print('SearchEngine already fixed or pattern missing')
+
+print('Compile fixes applied.')
+PY
