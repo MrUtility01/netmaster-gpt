@@ -374,7 +374,7 @@ private fun MainAppShell(vm: NetMasterViewModel, load: AppLoadState) {
                 }
             }
         }
-    )
+    }
 
 
 @Composable
