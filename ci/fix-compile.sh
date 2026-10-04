@@ -56,13 +56,26 @@ if changed:
     p.write_text(t, encoding='utf-8')
 PY
 
-# OptIn for TopAppBar
-if ! grep -q 'ExperimentalMaterial3Api' "$APP"; then
-  # Add import after package line
-  sed -i '0,/^package com.example.netmaster.ui$/s//package com.example.netmaster.ui\n\nimport androidx.compose.material3.ExperimentalMaterial3Api/' "$APP"
-  # Add OptIn before private fun MainAppShell (keep @Composable above it)
-  sed -i 's/^@Composable\nprivate fun MainAppShell/@OptIn(ExperimentalMaterial3Api::class)\n@Composable\nprivate fun MainAppShell/' "$APP" || true
-  sed -i 's/^private fun MainAppShell/@OptIn(ExperimentalMaterial3Api::class)\n@Composable\nprivate fun MainAppShell/' "$APP" || true
-fi
+# OptIn for TopAppBar - use Python to avoid duplicate @Composable
+python3 - <<'PY'
+from pathlib import Path
+p = Path('app/src/main/java/com/example/netmaster/ui/NetMasterApp.kt')
+t = p.read_text(encoding='utf-8')
+if 'ExperimentalMaterial3Api' not in t:
+    t = t.replace(
+        'package com.example.netmaster.ui\n',
+        'package com.example.netmaster.ui\n\nimport androidx.compose.material3.ExperimentalMaterial3Api\n',
+        1,
+    )
+    t = t.replace(
+        '@Composable\nprivate fun MainAppShell',
+        '@OptIn(ExperimentalMaterial3Api::class)\n@Composable\nprivate fun MainAppShell',
+        1,
+    )
+    p.write_text(t, encoding='utf-8')
+    print('OptIn added for MainAppShell')
+else:
+    print('OptIn already present')
+PY
 
 echo 'Compile fixes applied.'
