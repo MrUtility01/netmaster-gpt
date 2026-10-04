@@ -16,8 +16,9 @@ data class FailureCase(val symptom:String="", val hypothesis:String="", val evid
 data class QuizQuestion(val q:String,val a:String)
 @Serializable
 data class Lesson(
-    val id:String,val title:String,val goal:String,val simple:String,val technical:String,val diagram:String,val example:String,val commands:String,val traffic:String,val lab:String,val troubleshooting:String,
-    val questions:List<String>,val tags:List<String>,
+    val id:String,val title:String,val goal:String,val simple:String,val technical:String,val diagram:String,val example:String,val commands:String,val traffic:String,val lab:String,
+    val troubleshooting:List<FailureCase> = emptyList(),
+    val questions:List<String> = emptyList(),val tags:List<String> = emptyList(),
     val deepTechnical:String = "", val packetWalkthrough:String = "", val configurationPlaybook:String = "", val platformCommands:String = "", val realScenario:String = "", val failureMatrix:List<FailureCase> = emptyList(), val evidenceChecklist:List<String> = emptyList(), val labSteps:List<String> = emptyList(), val interviewQuestions:List<String> = emptyList(), val masteryPath:List<String> = emptyList(), val topicSpecific:List<String> = emptyList(),
     val keyPoints:List<String> = emptyList(), val commonMistakes:List<String> = emptyList(), val studyChecklist:List<String> = emptyList(), val quiz:List<QuizQuestion> = emptyList(),
     val verification:String = "", val failure_analysis:String = "", val packet_state_walkthrough:String = "",
