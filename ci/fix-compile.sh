@@ -4,6 +4,7 @@ set -euo pipefail
 SCREENS=app/src/main/java/com/example/netmaster/ui/NetMasterScreens.kt
 VM=app/src/main/java/com/example/netmaster/ui/NetMasterViewModel.kt
 APP=app/src/main/java/com/example/netmaster/ui/NetMasterApp.kt
+ENRICHER=app/src/main/java/com/example/netmaster/domain/LessonEnricher.kt
 
 # NetMasterScreens: missing imports
 if ! grep -q 'import androidx.compose.material.icons.Icons' "$SCREENS"; then
@@ -76,6 +77,28 @@ if 'ExperimentalMaterial3Api' not in t:
     print('OptIn added for MainAppShell')
 else:
     print('OptIn already present')
+PY
+
+# LessonEnricher: troubleshooting is now List<FailureCase>
+python3 - <<'PY'
+from pathlib import Path
+p = Path('app/src/main/java/com/example/netmaster/domain/LessonEnricher.kt')
+t = p.read_text(encoding='utf-8')
+orig = t
+# Replace parseTroubleshoot(lesson.troubleshooting) with direct list usage
+t = t.replace(
+    'lesson.failureMatrix.ifEmpty { parseTroubleshoot(lesson.troubleshooting) }',
+    'lesson.failureMatrix.ifEmpty { lesson.troubleshooting }',
+)
+t = t.replace(
+    'if (lesson.failureMatrix.isNotEmpty()) lesson.failureMatrix else if (isBoilerplate(lesson.troubleshooting, listOf("Failure Matrix"))) b.failures else parseTroubleshoot(lesson.troubleshooting)',
+    'if (lesson.failureMatrix.isNotEmpty()) lesson.failureMatrix else if (lesson.troubleshooting.isNotEmpty()) lesson.troubleshooting else b.failures',
+)
+if t != orig:
+    p.write_text(t, encoding='utf-8')
+    print('Enricher updated for List troubleshooting')
+else:
+    print('Enricher already updated or patterns not found')
 PY
 
 echo 'Compile fixes applied.'
